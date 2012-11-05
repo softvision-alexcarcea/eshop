@@ -1,0 +1,4 @@
+%footer.round
+  %p
+    eShop &copy;
+    = Time.new.year

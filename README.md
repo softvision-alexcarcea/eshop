@@ -1,4 +1,0 @@
-eshop
-=====
-
-Startup eCommerce app

@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-gem 'rails', '3.2.8'
+gem 'rails'
 
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
@@ -24,6 +24,9 @@ end
 
 group :development do
   gem 'annotate'
+end
+
+group :test do
   gem 'faker'
 end
 

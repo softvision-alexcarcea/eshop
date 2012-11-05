@@ -1,6 +1,0 @@
-class PagesController < ApplicationController
-  def index
-    @title = "Home Page"
-    @products = Product.all
-  end
-end

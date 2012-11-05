@@ -1,4 +1,0 @@
-%li
-  %strong= link_to product.name, product
-  - if !product.description.nil?
-    %p= product.description

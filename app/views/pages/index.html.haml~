@@ -1,4 +1,0 @@
-%h1 eShop
-%div
-  %ul.products
-    = render @products

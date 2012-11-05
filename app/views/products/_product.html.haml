@@ -1,4 +1,5 @@
 %li
   %strong= link_to product.name, product
+  %span.pull-right= "($#{product.price})"
   - if product.description
     %p= product.description

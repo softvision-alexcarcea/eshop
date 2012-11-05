@@ -1,0 +1,8 @@
+- unless flash.nil?
+  - if flash[:error]
+    .alert.alert-error
+      %p= flash[:error]
+
+  - if flash[:success]
+    .alert.alert-success
+      %p= flash[:success]

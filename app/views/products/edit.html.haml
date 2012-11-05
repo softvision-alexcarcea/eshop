@@ -1,2 +1,10 @@
-%h1 Products#edit
-%p Find me in app/views/products/edit.html.haml
+%h1 Update product info
+= form_for @product do |form|
+  = render 'layouts/errors', :object => form.object
+  .row
+    .span6
+      = render 'product_fields', :form => form
+  .row
+    .span6
+      .form-actions
+        = form.submit "Update", :class => "btn btn-primary"

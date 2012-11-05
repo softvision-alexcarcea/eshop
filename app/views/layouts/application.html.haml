@@ -11,6 +11,7 @@
   %body
     #content
       = render 'layouts/header'
+      = render 'layouts/flash', :flash => flash
       %section
         = yield
       

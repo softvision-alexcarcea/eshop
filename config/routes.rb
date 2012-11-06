@@ -1,5 +1,7 @@
 Eshop::Application.routes.draw do
-  root :to => 'pages#index'
+  devise_for :admins
+
+  root :to => 'products#index'
 
   resources :products
 

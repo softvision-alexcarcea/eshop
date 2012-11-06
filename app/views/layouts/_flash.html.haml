@@ -1,8 +1,5 @@
-- unless flash.nil?
-  - if flash[:error]
-    .alert.alert-error
-      %p= flash[:error]
-
-  - if flash[:success]
-    .alert.alert-success
-      %p= flash[:success]
+- types = { :alert => :error, :danger => :danger, :error => :error, :info => :info, :notice => :info, :success => :success }
+- types.each do |key, value|
+  - if flash[key]
+    %div{ :class => "alert alert-#{value}" }
+      %p= flash[:key]

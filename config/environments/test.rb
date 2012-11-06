@@ -34,4 +34,7 @@ Eshop::Application.configure do
 
   # Print deprecation notices to the stderr
   config.active_support.deprecation = :stderr
+
+  # Default URL options for devise to use
+  config.action_mailer.default_url_options = { :host => 'localhost:3000' }
 end

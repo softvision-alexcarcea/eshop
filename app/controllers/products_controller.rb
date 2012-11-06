@@ -27,7 +27,7 @@ class ProductsController < ApplicationController
   def update
     @product = Product.find(params[:id])
     if @product.update_attributes(params[:product])
-      redirect_to root_path, :flash => { :success => "Product successfully created" }
+      redirect_to root_path, :flash => { :success => "Product successfully updated" }
     else
       flash.now[:error] = "Could not update product"
       render :edit

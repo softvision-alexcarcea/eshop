@@ -2,9 +2,9 @@
 = form_for @product do |form|
   = render 'layouts/errors', :object => form.object
   .row
-    .span6
+    .span8
       = render 'product_fields', :form => form
   .row
-    .span6
+    .span8
       .form-actions
         = form.submit "Create", :class => "btn btn-success"

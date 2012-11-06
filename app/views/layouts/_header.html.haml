@@ -1,5 +1,11 @@
 %header
-  = link_to image_tag("rails.png", :alt => title, :id => "logo", :class => "img-rounded img-polaroid"), root_path
-  %ul.nav.nav-pills.pull-right
-    %li{ :class => @root ? "active" : "" }= link_to "Home", root_path
-    %li{ :class => @signin ? "active" : "" }= link_to "Sign In", '#'
+  .navbar.navbar-inverse.navbar-fixed-top
+    .navbar-inner
+      .container
+        %a.brand{ :href => root_path, :title => "eShop Home" } eShop
+        %ul.nav.nav-pills.pull-right
+          %li{ :class => @root ? "active" : "" }= link_to "Home", root_path
+          - if admin_signed_in?
+            %li= link_to "Sign Out", destroy_admin_session_path, { :title => "Signed in as #{current_admin.email}", :method => :delete }
+          - else
+            %li{ :class => @signin ? "active" : "" }= link_to "Sign In", new_admin_session_path

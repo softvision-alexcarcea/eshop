@@ -1,7 +1,8 @@
-%h1 Products#index
-%p Find me in app/views/products/index.html.haml
 .row
+  .span2
   .span8
+    %h1 Products list
     %ul.unstyled
       = render @products
-= paginate @products
+    = paginate @products
+  .span2

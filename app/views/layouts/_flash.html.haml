@@ -1,5 +1,4 @@
 - types = { :alert => :error, :danger => :danger, :error => :error, :info => :info, :notice => :info, :success => :success }
 - types.each do |key, value|
   - if flash[key]
-    %div{ :class => "alert alert-#{value}" }
-      %p= flash[:key]
+    %div{ :class => "alert alert-#{value}" }= flash[key]

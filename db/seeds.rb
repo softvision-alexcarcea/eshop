@@ -12,9 +12,9 @@ require 'faker'
   Product.create! :name => Faker::Lorem.words,
                   :description => Faker::Lorem.sentences,
                   :price => rand(1..20) + 0.99
+end
 
 # create admin
 Admin.create! :email => "admin@eshop.com",
               :password => "letmein",
               :password_confirmation => "letmein"
-end

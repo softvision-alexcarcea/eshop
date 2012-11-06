@@ -9,15 +9,17 @@
     = csrf_meta_tags
 
   %body
+    = render 'layouts/header'
     #content
-      = render 'layouts/header'
-      = render 'layouts/flash', :flash => flash
-      %section
-        = yield
-      
-      - if Rails.env.development?
-        - debug params
-        - debug request
-    
+      .container
+        .row
+          = render 'layouts/flash', :flash => flash
+        %section
+          = yield
+
+        - if Rails.env.development?
+          = debug params
+          = debug flash
+
     #push
     = render 'layouts/footer'

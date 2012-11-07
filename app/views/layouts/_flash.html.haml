@@ -1,4 +1,7 @@
 - types = { :alert => :error, :danger => :danger, :error => :error, :info => :info, :notice => :info, :success => :success }
 - types.each do |key, value|
   - if flash[key]
-    %div{ :class => "alert alert-#{value}" }= flash[key]
+    .row
+      %div{ :class => "alert alert-#{value} fade in" }
+        %button.close{ :"data-dismiss" => "alert", :type => "button" } &times;
+        = flash[key]

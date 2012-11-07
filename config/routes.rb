@@ -3,7 +3,12 @@ Eshop::Application.routes.draw do
 
   root :to => 'products#index'
 
-  resources :products
+  resources :products do
+    member do
+      put 'add'
+      delete 'remove'
+    end
+  end
 
   # The priority is based upon order of creation:
   # first created -> highest priority.

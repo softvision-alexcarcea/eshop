@@ -1,16 +1,21 @@
-.row
-  = form.label :name, :class => "span2"
-  = form.text_field :name, :class => "span4"
+.control-group
+  .row
+    .span2
+      = form.label :name
+    .span10
+      = form.text_field :name, :class => :span10
 
-.row
-  = form.label :price, :class => "span2"
-  .input-prepend.span4
-    .row
+.control-group
+  .row
+    .span2
+      = form.label :price
+    .span10.input-prepend
       %span.add-on $
-      = form.text_field :price, :class => "span3"
+      = form.text_field :price, :class => "span2"
 
-.row
-  = form.label :description, :class => "span6"
-
-.row
-  = form.text_area :description, :class => "span6", :rows => 5
+.control-group
+  .row
+    .span2
+      = form.label :description
+    .span10
+      = form.text_area :description, :rows => 5, :class => :span10

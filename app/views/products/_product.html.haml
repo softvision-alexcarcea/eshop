@@ -14,8 +14,9 @@
           = link_to "Delete", product, options
         - else
           - options = { :class => "btn btn-success", :title => "Add to Cart" }
-          = link_to "Add to Cart", edit_product_path(product), options
-    
+          = link_to "Add to Cart", product, options
+  
+  .row
     .span8
       - if product.description
         %p= product.description

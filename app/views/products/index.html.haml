@@ -1,8 +1,12 @@
-.row
-  .span2
-  .span8
-    %h1 Products list
-    %ul.unstyled
-      = render @products
-    = paginate @products
-  .span2
+.span8
+  %section
+    .row
+      %h1 Products list
+      %ul.unstyled
+        = render @products
+      = paginate @products
+.span4
+  %section
+    .row
+      .span4.cart
+        = render 'cart', :cart => @cart

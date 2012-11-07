@@ -1,0 +1,23 @@
+%span.label.label-success
+  %i.icon-shopping-cart.icon-white
+  Shopping Cart
+- if cart and cart.any?
+  - total = 0
+  %ul.unstyled
+    - cart.each do |product, count|
+      - total += product.price * count
+      %li
+        .row
+          .span3
+            %span.text-info= "#{product.name}"
+            %span.label.label-info= "(#{count})"
+          .span1
+            = link_to remove_product_path(product), :class => "btn-small btn-danger", :title => "Remove from Cart", :method => :delete, :confirm => "Are you sure you want to remove this item from your cart?" do
+              %i.icon-remove.icon-white
+  %span.text-info= "Total: $#{total}"
+  %span.pull-right
+    %a{ :href => "#", :class => "btn btn-primary" } Buy!
+- else
+  %br
+  %br
+  %span.label.label-info 0 items

@@ -12,6 +12,7 @@ class ProductsController < ApplicationController
 
   def new
     @product = Product.new
+    @product.assets.build
     @title = "Create product"
   end
 
@@ -27,6 +28,7 @@ class ProductsController < ApplicationController
 
   def edit
     @product = Product.find(params[:id])
+    @product.assets.build
     @title = "Edit #{@product.name}"
   end
   

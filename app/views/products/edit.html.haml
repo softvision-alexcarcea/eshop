@@ -1,5 +1,5 @@
 .well.span12
-  = form_for @product do |form|
+  = form_for @product, :html => { :multipart => true } do |form|
     %legend Update product info
     = render 'layouts/errors', :object => form.object
     = render 'product_fields', :form => form

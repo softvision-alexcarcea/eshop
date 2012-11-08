@@ -7,7 +7,7 @@
 #  description :string(255)
 #  created_at  :datetime         not null
 #  updated_at  :datetime         not null
-#  price       :float
+#  price       :float            default(0.0)
 #
 
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html

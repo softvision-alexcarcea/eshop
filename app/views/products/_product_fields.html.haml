@@ -3,7 +3,7 @@
     .span2
       = form.label :name
     .span10
-      = form.text_field :name, :class => :span10
+      = form.text_field :name, :class => "span10"
 
 .control-group
   .row
@@ -18,4 +18,26 @@
     .span2
       = form.label :description
     .span10
-      = form.text_area :description, :rows => 5, :class => :span10
+      = form.text_area :description, :rows => 5, :class => "span10"
+
+.control-group
+  .row
+    .span2
+      = form.label :assets
+    .span10
+      - images = []
+      = form.fields_for :assets do |asset|
+        - if asset.object.new_record?
+          = asset.file_field :image
+        - else
+          - images.append(asset.object.image)
+          %span
+      
+      - if images.any?
+        %ul.thumbnails
+          - images.each do |image|
+            %li.span2
+              .thumbnail
+                = link_to image_tag(image.url(:thumbnail)), image.url
+                %hr.divider
+                %a.btn-small.btn-danger{ :href => "#", :title => "Remove image" } Remove

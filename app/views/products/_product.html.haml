@@ -4,7 +4,7 @@
       %strong= link_to product.name, product
     .span4
       %span.pull-right
-        = "($#{product.price})"
+        = "($%.2f)" % product.price
         
         - if admin_signed_in?
           - options = { :class => "btn btn-primary", :title => "Edit product" }

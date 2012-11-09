@@ -9,8 +9,10 @@
       %li
         .row
           .span3
+            - if product.assets.any?
+              = image_tag product.assets[0].image.url(:thumbnail)
             %span.label.label-info= "(#{count})"
-            %span.text-info= "#{product.name}"
+            = link_to product.name, product
           .span1
             = link_to remove_product_path(product), :class => "btn-mini btn-danger", :title => "Remove from Cart", :method => :delete, :confirm => "Are you sure you want to remove this item from your cart?" do
               &times;

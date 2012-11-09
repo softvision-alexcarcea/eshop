@@ -1,6 +1,8 @@
 %li
   .row
     .span4
+      - if product.assets.any?
+        = image_tag product.assets[0].image.url(:thumbnail)
       %strong= link_to product.name, product
     .span4
       %span.pull-right

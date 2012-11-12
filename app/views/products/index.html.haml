@@ -13,7 +13,7 @@
     .row
       .span4.well.cart
         = render 'cart', :cart => @cart
-    
+
     .row
       .span4.well
-        = render 'shared/categories', :locals => { :categories => @categories, :category_id => nil }
+        = render partial: 'shared/categories', :locals => { categories: @categories, category_id: nil }

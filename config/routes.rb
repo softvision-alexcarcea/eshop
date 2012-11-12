@@ -9,6 +9,8 @@ Eshop::Application.routes.draw do
       delete 'remove'
     end
   end
+  
+  resources :categories
 
   # The priority is based upon order of creation:
   # first created -> highest priority.

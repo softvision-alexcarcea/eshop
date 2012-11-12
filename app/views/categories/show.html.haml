@@ -1,0 +1,19 @@
+.span8
+  %section
+    .row
+      %h1= "#{@category.name}: products"
+      - if @products.any?
+        %ul.unstyled.products
+          = render @products
+        = paginate @products
+      - else
+        %p No products in this category.
+.span4
+  %section
+    .row
+      .span4.well
+        = render 'products/cart', :cart => @cart
+    
+    .row
+      .span4.well
+        = render 'shared/categories', :locals => { :categories => @categories, :category_id => @category.id }

@@ -1,10 +1,11 @@
 .well.span12
-  = form_for @product, :html => { :multipart => true } do |form|
-    %legend Create product
+  = form_for @category, :html => { :multipart => true } do |form|
+    %legend Create category
+    = form.hidden_field :parent_id
     = render 'layouts/errors', :object => form.object
     .row
       .span8
-        = render 'product_fields', :form => form
+        = render 'category_fields', :form => form
     .row
       .span8
         .form-actions

@@ -1,12 +1,13 @@
 class ProductsController < ApplicationController
   before_filter :authenticate_admin!,
-                :only => [:new, :create, :edit, :update]
+                :only => [:new, :create, :edit, :update, :destroy]
   before_filter :get_cart,
                 :only => [:index, :show]
 
   def index
     @products = Product.page(params[:page]).per(@products_per_page)
-    @title = "Products list"
+    @categories = Category.arrange(:order => :name)
+    @title = "Product list"
     @root = true
   end
 
@@ -69,7 +70,7 @@ class ProductsController < ApplicationController
       session[:cart][id] = count
     end
     # raise session[:cart].inspect
-    flash[:success] = "Product successfully added to cart"
+    flash[:info] = "Product added to cart"
     redirect_to products_path
   end
 
@@ -79,7 +80,7 @@ class ProductsController < ApplicationController
     @product = Product.find(id)
     if session[:cart] and session[:cart][id]
       current_count = session[:cart][id]
-      count = params[:count] ? params[:count].to_i : 1
+      count = params[:count] ? params[:count].to_i : current_count
       if current_count > count
         # remove count units
         session[:cart][id] -= count
@@ -89,7 +90,7 @@ class ProductsController < ApplicationController
       end
     end
     # raise session[:cart].inspect
-    flash[:success] = "Product successfully removed from cart"
+    flash[:info] = "Product removed from cart"
     redirect_to products_path
   end
 

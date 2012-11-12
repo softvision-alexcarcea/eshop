@@ -20,6 +20,13 @@
     .span10
       = form.text_area :description, :rows => 5, :class => "span10"
 
+.control-group
+  .row
+    .span2
+      = form.label :tags
+    .span10
+      = form.text_field :tag_list, :class => "span10"
+
 %script= "count = #{@product.assets.count};"
 
 .control-group

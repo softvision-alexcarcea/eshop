@@ -18,7 +18,15 @@
           - options = { :class => "btn btn-success", :title => "Add to Cart" }
           = link_to "Add to Cart", product, options
   
-  .row
-    .span8
-      - if product.description
+  - if product.description
+    .row
+      .span8
         %p= product.description
+  
+  - if product.tag_list.any?
+    .row
+      .span8
+        %i.icon-tags
+        - product.tag_list.each do |tag|
+          %span.label.label-inverse= tag
+          

@@ -11,7 +11,8 @@
 #
 
 class Product < ActiveRecord::Base
-  attr_accessible :description, :name, :price, :assets, :assets_attributes
+  attr_accessible :description, :name, :price, :categories,
+                  :assets, :assets_attributes, :tag_list
 
   validates :name,  :presence   => true,
                     :length     => { :within => 3..100 },
@@ -19,4 +20,8 @@ class Product < ActiveRecord::Base
 
   has_many :assets, :inverse_of => :product, :dependent => :destroy
   accepts_nested_attributes_for :assets, :allow_destroy => true
+  
+  has_and_belongs_to_many :categories
+  
+  acts_as_taggable
 end

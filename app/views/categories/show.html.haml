@@ -16,4 +16,4 @@
     
     .row
       .span4.well
-        = render 'shared/categories', :locals => { :categories => @categories, :category_id => @category.id }
+        = render partial: 'shared/categories', locals: { categories: @categories, category_id: @category.id, root: true }

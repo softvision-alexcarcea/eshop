@@ -1,3 +1,11 @@
 // Place all the styles related to the categories controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+.actions-container {
+  margin-bottom: 5px;
+}
+
+.nav-list .nav-list {
+  /* nested lists shoul stretch all the way to the right */
+  padding-right: 0;
+}

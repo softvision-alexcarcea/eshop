@@ -16,4 +16,12 @@
     
     .row
       .span4.well
-        = render partial: 'shared/categories', locals: { categories: @categories, category_id: @category.id, root: true }
+        - if admin_signed_in?
+          %div.actions-container
+            - options = { :class => "btn btn-primary", :title => "Edit Categories List" }
+            = link_to "Edit Categories", categories_path, options
+        
+        %ul.nav.nav-list
+          %li
+            = link_to "All Products", products_path
+            = render 'shared/categories', categories: @categories, category_id: @category.id

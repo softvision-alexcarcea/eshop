@@ -18,10 +18,10 @@
         .row
           = yield
 
-        - if Rails.env.development?
-          %br
-          = debug params
-          = debug flash
+        -#- if Rails.env.development?
+          -#%br
+          -#= debug params
+          -#= debug flash
 
     #push
     = render 'layouts/footer'

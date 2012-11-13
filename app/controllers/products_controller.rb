@@ -13,6 +13,7 @@ class ProductsController < ApplicationController
 
   def new
     @product = Product.new
+    @categories = Category.all.order(:name)
     @title = "Create product"
   end
 
@@ -28,6 +29,7 @@ class ProductsController < ApplicationController
 
   def edit
     @product = Product.find(params[:id])
+    @categories = Category.all
     @title = "Edit #{@product.name}"
   end
   
@@ -43,6 +45,7 @@ class ProductsController < ApplicationController
 
   def show
     @product = Product.find(params[:id])
+    @categories = Category.arrange(:order => :name)
     @title = @product.name
   end
 

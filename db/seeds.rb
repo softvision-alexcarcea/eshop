@@ -56,8 +56,8 @@ create_categories(categories_data)
     category = @categories[index]
     categories.append(category) if not categories.include?(category)
   end
-  product = Product.create! :name => Faker::Lorem.words,
-                            :description => Faker::Lorem.sentences,
+  product = Product.create! :name => Faker::Lorem.words.join(" ").capitalize,
+                            :description => Faker::Lorem.sentences.join(" "),
                             :price => rand(1..20) + 0.99,
                             :categories => categories
   @products.append(product)

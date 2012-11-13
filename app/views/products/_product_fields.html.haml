@@ -3,7 +3,7 @@
     .span2
       = form.label :name
     .span10
-      = form.text_field :name, :class => "span10"
+      = form.text_field :name, class: "span10"
 
 .control-group
   .row
@@ -11,21 +11,28 @@
       = form.label :price
     .span10.input-prepend
       %span.add-on $
-      = form.text_field :price, :class => "span2"
+      = form.text_field :price, class: "span2"
 
 .control-group
   .row
     .span2
       = form.label :description
     .span10
-      = form.text_area :description, :rows => 5, :class => "span10"
+      = form.text_area :description, rows: 5, class: "span10"
+
+.control-group
+  .row
+    .span2
+      = form.label :categories
+    .span10
+      = form.collection_select :category_ids, @categories, :id, :name, {}, class: "span10", multiple: true, selected: @product.categories.map(&:id)
 
 .control-group
   .row
     .span2
       = form.label :tags
     .span10
-      = form.text_field :tag_list, :class => "span10"
+      = form.text_field :tag_list, class: "span10"
 
 %script= "count = #{@product.assets.count};"
 
@@ -34,9 +41,12 @@
     .span2
       = form.label :assets
     .span10
-      %a.add-image.btn.btn-success{ :href => "#", :title => "Add an image to this product" } Add image...
+      %a.add-image.btn.btn-success{ href: "#", title: "Add an image to this product" } Add image...
       %br
       - assets = []
+      %input.span10{ type: "file", name: "product[asset_files][]" }
+      %input.span10{ type: "file", name: "product[asset_files][]" }
+      %input.span10{ type: "file", name: "product[asset_files][]" }
       = form.fields_for :assets, @product.assets do |asset_form|
         - asset = asset_form.object
         - if asset.new_record?
@@ -50,6 +60,6 @@
           - assets.each_with_index do |asset, i|
             %li.span2
               .thumbnail
-                = link_to image_tag(asset.image.url(:thumbnail)), asset.image.url, { :title => asset.image_file_name }
+                = link_to image_tag(asset.image.url(:thumbnail)), asset.image.url, { title: asset.image_file_name }
                 %hr.divider
-                %a.remove-image.btn-small.btn-danger{ :href => "#", :title => "Remove image", :id => "asset_#{i}_image" } Remove
+                %a.remove-image.btn-small.btn-danger{ href: "#", title: "Remove image", id: "asset_#{i}_image" } Remove

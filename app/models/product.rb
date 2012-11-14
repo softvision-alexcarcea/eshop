@@ -26,13 +26,6 @@ class Product < ActiveRecord::Base
   
   acts_as_taggable
   
-#  def category_ids
-#    categories.map(&:id)
-#  end
-#  
-#  def category_ids=(value)
-#    categories = Category.where("id IN ?", value)
-#  end
   def asset_files=(files)
     files.each do |asset|
       assets.create(image: asset)

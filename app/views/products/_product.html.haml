@@ -1,12 +1,11 @@
 %li
   .row
-    .span4
+    .span8
       - if product.assets.any?
-        = image_tag product.assets[0].image.url(:thumbnail)
+        = link_to image_tag(product.assets[0].image.url(:thumbnail), class: "img-rounded"), product
       %strong= link_to product.name, product
-    .span4
-      %span.pull-right
-        = "($%.2f)" % product.price
+      .pull-right
+        %span= "($%.2f)" % product.price
         
         - if admin_signed_in?
           - options = { :class => "btn btn-primary", :title => "Edit product" }

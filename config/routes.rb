@@ -5,12 +5,14 @@ Eshop::Application.routes.draw do
 
   resources :products do
     member do
-      put 'add'
-      delete 'remove'
+      put :add
+      delete :remove
     end
   end
-  
+
   resources :categories
+
+  resource :cart
 
   # The priority is based upon order of creation:
   # first created -> highest priority.

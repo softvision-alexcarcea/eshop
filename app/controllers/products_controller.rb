@@ -32,7 +32,7 @@ class ProductsController < ApplicationController
     @categories = Category.all
     @title = "Edit #{@product.name}"
   end
-  
+
   def update
     @product = Product.find(params[:id])
     if @product.update_attributes(params[:product])
@@ -56,45 +56,6 @@ class ProductsController < ApplicationController
     else
       redirect_to products_path, :flash => { :error => "Could not delete product" }
     end
-  end
-
-  # add product to cart
-  def add
-    id = params[:id].to_i
-    @product = Product.find(id)
-    if not session[:cart]
-      session[:cart] = {}
-    end
-    
-    count = params[:count] ? params[:count].to_i : 1
-    if session[:cart][id]
-      session[:cart][id] += count
-    else
-      session[:cart][id] = count
-    end
-    # raise session[:cart].inspect
-    flash[:info] = "Product added to cart"
-    redirect_to products_path
-  end
-
-  # remove product from cart
-  def remove
-    id = params[:id].to_i
-    @product = Product.find(id)
-    if session[:cart] and session[:cart][id]
-      current_count = session[:cart][id]
-      count = params[:count] ? params[:count].to_i : current_count
-      if current_count > count
-        # remove count units
-        session[:cart][id] -= count
-      else
-        # remove all units
-        session[:cart].delete(id)
-      end
-    end
-    # raise session[:cart].inspect
-    flash[:info] = "Product removed from cart"
-    redirect_to products_path
   end
 
   private

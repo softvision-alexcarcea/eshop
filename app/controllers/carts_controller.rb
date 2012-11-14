@@ -13,10 +13,10 @@ class CartsController < ApplicationController
     @product = Product.find(id)
     session[:cart] ||= {}
 
-    count = params[:count] || 1
+    count = params[:count].to_i || 1
 
     session[:cart][id] ||= 0
-    session[:cart][id] += count.to_i
+    session[:cart][id] += count
 
     render partial: 'products/cart', locals: { cart: get_cart }
   end
@@ -24,18 +24,20 @@ class CartsController < ApplicationController
   def destroy
     id = params[:id].to_i
     session[:cart].delete(id)
-    render nothing: true
+    
+    render partial: 'products/cart', locals: { cart: get_cart }
   end
 
   def update
     id = params[:id].to_i
-    if params[:cart][id]
-      if params[:count].to_i == 0
+    count = params[:count].to_i
+    if session[:cart][id]
+      if count == 0
         session[:cart].delete(id)
       else
-        session[:cart] = params[:count]
+        session[:cart][id] = count
       end
-      render nothing: true
+      render partial: 'products/cart', locals: { cart: get_cart }
     else
       raise 'Cart item not found'
     end
@@ -48,7 +50,6 @@ class CartsController < ApplicationController
     if session[:cart] and session[:cart].any?
       result = {}
       ids = session[:cart].map { |id, count| id }
-      # raise ids.inspect
       products = Product.where("id IN (?)", ids)
       products.each do |product|
         result[product] = session[:cart][product.id]

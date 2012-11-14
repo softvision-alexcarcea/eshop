@@ -3,4 +3,4 @@
     - categories.each do |category, subcategories|
       %li{ class: ((category_id == category.id) ? "active" : nil) }
         = link_to category.name, category, title: category.description
-      = render 'shared/categories', categories: subcategories, category_id: category_id
+        = render 'shared/categories', categories: subcategories, category_id: category_id

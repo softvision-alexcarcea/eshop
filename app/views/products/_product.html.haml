@@ -1,8 +1,7 @@
 %li
   .row
     .span8
-      - if product.assets.any?
-        = link_to image_tag(product.assets[0].image.url(:thumbnail), class: "img-rounded"), product
+      = link_to image_tag(product_default_image_url(product, :thumbnail), class: "img-rounded"), product
       %strong= link_to product.name, product
       .pull-right
         %span= "($%.2f)" % product.price

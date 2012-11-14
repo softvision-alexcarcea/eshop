@@ -3,10 +3,9 @@
 # You can use CoffeeScript in this file: http://jashkenas.github.com/coffee-script/
 
 $( ->
-  $("#cart-contents").on "ajax:success", "a.delete", ->
-    $(this).parents("li").remove();
-
-  $("#add-to-cart").on "ajax:success", (ev, data)->
+  $("#cart-contents").on "ajax:success", "a.delete", (event, data) ->
     $("#cart-contents").html(data)
 
+  $("#add-to-cart").on "ajax:success", (event, data) ->
+    $("#cart-contents").html(data)
 )

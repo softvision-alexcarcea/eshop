@@ -12,7 +12,8 @@
   %section
     .row
       .span4.well
-        = render 'products/cart', :cart => @cart
+        #cart_contents
+          = render 'products/cart', :cart => @cart
     
     .row
       .span4.well

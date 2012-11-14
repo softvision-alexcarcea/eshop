@@ -33,11 +33,12 @@
   %section
     .row
       .span4.well.cart
-        = form_tag cart_path, :method => :post, remote: true do
+        = form_tag cart_path, :method => :post, remote: true, id: 'add-to-cart' do
           = number_field_tag :count, nil, :placeholder => "Quantity", :min => 1, :class => "span4"
           = hidden_field_tag :id, @product.id
           = submit_tag "Add to Cart", :class => "btn btn-success"
-        = render 'cart', :cart => @cart
+        #cart-contents
+          = render 'cart', :cart => @cart
 
     .rowl
       .span4.well

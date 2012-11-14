@@ -36,6 +36,7 @@ GEM
       rake
     arel (3.0.2)
     bcrypt-ruby (3.0.1)
+    bootstrap-sass (2.1.1.0)
     builder (3.0.4)
     cocaine (0.4.2)
     coffee-rails (3.2.2)
@@ -138,6 +139,7 @@ DEPENDENCIES
   acts-as-taggable-on
   ancestry
   annotate
+  bootstrap-sass
   coffee-rails (~> 3.2.1)
   devise
   faker

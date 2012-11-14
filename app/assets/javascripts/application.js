@@ -12,7 +12,7 @@
 //
 //= require jquery
 //= require jquery_ujs
-//= require_tree .
 //= require bootstrap.min
 //= require bootstrap-alert
 //= require bootstrap-carousel
+//= require_tree .

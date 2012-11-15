@@ -25,7 +25,8 @@
     .span2
       = form.label :categories
     .span10
-      = form.collection_select :category_ids, @categories, :id, :name, {}, class: "span10", multiple: true, selected: @product.categories.map(&:id)
+      = form.collection_select :category_ids, @categories, :id, :name,
+          {}, class: "span10", multiple: true, selected: @product.categories.map(&:id)
 
 .control-group
   .row
@@ -40,7 +41,8 @@
       = form.label :assets
     .span10
       .actions-container
-        %a.add-image.btn.btn-success{ href: "#", title: "Add an image to this product" } Add image...
+        %a.add-image.btn.btn-success{ href: "#",
+          title: "Add an image to this product" } Add image...
       
       = form.fields_for :assets, @product.assets do |asset_form|
         - if asset_form.object.new_record?
@@ -53,9 +55,11 @@
           - @product.assets.each_with_index do |asset, i|
             %li.span2
               .thumbnail
-                = link_to image_tag(asset.image.url(:thumbnail)), asset.image.url, { title: asset.image_file_name }
-                %hr.divider
-                %a.remove-image.btn-small.btn-danger{ href: "#", title: "Remove image", id: "remove_asset_#{i}" } Remove
+                = link_to image_tag(asset.image.url(:thumbnail)),
+                    asset.image.url, { title: asset.image_file_name }
+                %hr.divider/
+                %a.remove-image.btn.btn-small.btn-danger{ href: "#",
+                  title: "Remove image", data: { id: i } } Remove
 
 = javascript_tag do
-  = render "product_assets.js"
+  = (render "product_fields.js").html_safe

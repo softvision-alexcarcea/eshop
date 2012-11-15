@@ -26,6 +26,7 @@ class CategoriesController < ApplicationController
     @category = Category.find(params[:id])
     @categories = Category.arrange(:order => :name)
     @products = @category.products.page(params[:page]).per(@products_per_page)
+    @cart = Cart.new(session)
     @title = @category.name
   end
 

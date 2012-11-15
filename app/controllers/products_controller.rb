@@ -1,12 +1,11 @@
 class ProductsController < ApplicationController
   before_filter :authenticate_admin!,
                 :only => [:new, :create, :edit, :update, :destroy]
-  before_filter :get_cart,
-                :only => [:index, :show]
 
   def index
     @products = Product.page(params[:page]).per(@products_per_page)
     @categories = Category.arrange(:order => :name)
+    @cart = Cart.new(session)
     @title = "Product list"
     @root = true
   end
@@ -46,6 +45,7 @@ class ProductsController < ApplicationController
   def show
     @product = Product.find(params[:id])
     @categories = Category.arrange(:order => :name)
+    @cart = Cart.new(session)
     @title = @product.name
   end
 
@@ -57,22 +57,4 @@ class ProductsController < ApplicationController
       redirect_to products_path, :flash => { :error => "Could not delete product" }
     end
   end
-
-  private
-
-    def get_cart
-      result = nil
-
-      if session[:cart] and session[:cart].any?
-        result = {}
-        ids = session[:cart].map { |id, count| id }
-        # raise ids.inspect
-        products = Product.where("id IN (?)", ids)
-        products.each do |product|
-          result[product] = session[:cart][product.id]
-        end
-      end
-
-      @cart = result
-    end
 end

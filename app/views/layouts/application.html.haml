@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+!!! 5
 %html{ :lang => "en" }
   %head
     %meta{ "http-equiv" => "Content-Type", content: "text/html; charset=utf-8" }
@@ -11,10 +11,9 @@
     = render 'layouts/header'
     #content
       .container
-        = render 'layouts/flash', :flash => flash
-
-        .row
-          = yield
+        = render 'layouts/flash', flash: flash
+        
+        = yield
 
         -#- if Rails.env.development?
           -#= debug params

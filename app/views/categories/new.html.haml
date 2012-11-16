@@ -1,12 +1,13 @@
-.well.span12
-  = form_for @category, :html => { :multipart => true } do |form|
-    %legend Create category
-    = form.hidden_field :parent_id
-    = render 'layouts/errors', :object => form.object
-    .row
-      .span8
-        = render 'category_fields', :form => form
-    .row
-      .span8
-        .form-actions
-          = form.submit "Create", :class => "btn btn-success"
+.row
+  .well.span12
+    = form_for @category, :html => { :multipart => true } do |form|
+      %legend Create category
+      = form.hidden_field :parent_id
+      = render 'layouts/errors', :object => form.object
+      .row
+        .span8
+          = render 'category_fields', :form => form
+      .row
+        .span8
+          .form-actions
+            = form.submit "Create", :class => "btn btn-success"

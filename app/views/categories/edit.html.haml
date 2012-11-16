@@ -1,7 +1,8 @@
-.well.span12
-  = form_for @category do |form|
-    %legend Update category info
-    = render 'layouts/errors', :object => form.object
-    = render 'category_fields', :form => form
-    .form-actions
-      = form.submit "Update", :class => "btn btn-primary"
+.row
+  .well.span12
+    = form_for @category do |form|
+      %legend Update category info
+      = render 'layouts/errors', :object => form.object
+      = render 'category_fields', :form => form
+      .form-actions
+        = form.submit "Update", :class => "btn btn-primary"

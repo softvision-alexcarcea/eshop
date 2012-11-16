@@ -1,8 +1,9 @@
-%h1 Category list
-.well
-  - if admin_signed_in?
-    %div.actions-container
-      - options = { :class => "btn btn-success", :title => "Add category" }
-      = link_to "Add category", new_category_path, options
-  
-  = render 'hierarchy', :hierarchy => @categories
+.row
+  %h1 Category list
+  .well
+    - if admin_signed_in?
+      %div.actions-container
+        - options = { :class => "btn btn-success", :title => "Add category" }
+        = link_to "Add category", new_category_path, options
+    
+    = render 'hierarchy', :hierarchy => @categories

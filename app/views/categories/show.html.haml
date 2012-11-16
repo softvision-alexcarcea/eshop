@@ -1,28 +1,32 @@
-.span8
-  %section
-    .row
-      %h1= "#{@category.name}: products"
-      - if @products.any?
-        %ul.unstyled.products
-          = render @products
-        = paginate @products
-      - else
-        %p No products in this category.
-.span4
-  %section
-    .row
-      .span4.well
-        #cart_contents
-          = render 'products/cart', :cart => @cart
-    
-    .row
-      .span4.well
-        - if admin_signed_in?
-          %div.actions-container
-            - options = { :class => "btn btn-primary", :title => "Edit Categories List" }
-            = link_to "Edit Categories", categories_path, options
-        
-        %ul.nav.nav-list
-          %li
-            = link_to "All Products", products_path
-            = render 'shared/categories', categories: @categories, category_id: @category.id
+.row
+  .span12
+    = render 'shared/search', category: @category
+.row
+  .span8
+    %section
+      .row
+        %h1= "#{@category.name}: products"
+        - if @products.any?
+          %ul.unstyled.products
+            = render @products
+          = paginate @products
+        - else
+          %p No products in this category.
+  .span4
+    %section
+      .row
+        .span4.well
+          #cart_contents
+            = render 'products/cart', :cart => @cart
+      
+      .row
+        .span4.well
+          - if admin_signed_in?
+            %div.actions-container
+              - options = { :class => "btn btn-primary", :title => "Edit Categories List" }
+              = link_to "Edit Categories", categories_path, options
+          
+          %ul.nav.nav-list
+            %li
+              = link_to "All Products", products_path
+              = render 'shared/categories', categories: @categories, category_id: @category.id

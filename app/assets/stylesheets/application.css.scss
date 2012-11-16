@@ -63,6 +63,15 @@ footer p {
           box-shadow: $value;
 }
 
+/* Search box styles */
+.search-container {
+  padding: 10px;
+}
+
+.search-row {
+  padding: 5px;
+}
+
 /* Products list styles */
 ul.products li {
   background-color: #fff;

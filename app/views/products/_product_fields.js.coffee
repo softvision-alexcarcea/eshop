@@ -15,14 +15,12 @@ remove_asset = (element) ->
     element.text("Remove")
     destroy.val(false)
 
-$(document).ready( ->
-  $(".add-image").click( (event) ->
+$( ->
+  $(".add-image").click (event) ->
     event.preventDefault()
-    return add_asset($(this))
-  )
+    add_asset($(this))
   
-  $(".remove-image").click( (event) ->
+  $(".remove-image").click (event) ->
     event.preventDefault()
-    return remove_asset($(this))
-  )
+    remove_asset($(this))
 )

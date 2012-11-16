@@ -4,9 +4,8 @@ Eshop::Application.routes.draw do
   root :to => 'products#index'
 
   resources :products do
-    member do
-      put :add
-      delete :remove
+    collection do
+      get :search
     end
   end
 

@@ -1,28 +1,32 @@
-.span8
-  %section
-    .row
-      %h1 Products list
-      - if @products.any?
-        %ul.unstyled.products
-          = render @products
-        = paginate @products
-      - else
-        %p No products exist.
-.span4
-  %section
-    .row
-      .span4.well.cart
-        #cart_contents
-          = render 'cart', :cart => @cart
+.row
+  .span12
+    = render 'shared/search', category: @category
+.row
+  .span8
+    %section
+      .row
+        %h1= @title || "Product list"
+        - if @products.any?
+          %ul.unstyled.products
+            = render @products
+          = paginate @products
+        - else
+          %p No products matching your criteria exist.
+  .span4
+    %section
+      .row
+        .span4.well.cart
+          #cart_contents
+            = render 'cart', :cart => @cart
 
-    .row
-      .span4.well
-        - if admin_signed_in?
-          %div.actions-container
-            - options = { :class => "btn btn-primary", :title => "Edit Categories List" }
-            = link_to "Edit Categories", categories_path, options
-        
-        %ul.nav.nav-list
-          %li.active
-            = link_to "All Products", products_path
-            = render 'shared/categories', categories: @categories, category_id: nil
+      .row
+        .span4.well
+          - if admin_signed_in?
+            %div.actions-container
+              - options = { :class => "btn btn-primary", :title => "Edit Categories List" }
+              = link_to "Edit Categories", categories_path, options
+          
+          %ul.nav.nav-list
+            %li.active
+              = link_to "All Products", products_path
+              = render 'shared/categories', categories: @categories, category_id: nil

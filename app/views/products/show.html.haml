@@ -1,53 +1,55 @@
-.span8
-  %section
-    .row
-      %h1= @product.name
-      %h5= "Price: $#{@product.price}"
+.row
+  .span8
+    %section
+      .row
+        %h1= @product.name
+        %h5= "Price: $#{@product.price}"
 
-      - if admin_signed_in?
-        .actions-container
-          - options = { :class => "btn btn-primary", :title => "Edit product" }
-          = link_to "Edit", edit_product_path(@product), options
-
-          - options = { :class => "btn btn-danger", :method => :delete, :title => "Delete product", :confirm => "Are you sure you want to delete this product?" }
-          = link_to "Delete", @product, options
-
-    .row
-      .span8
-        - if @product.description
-          %p= @product.description
-        - if @product.assets.any?
-          #image-slider.carousel.slide
-            .carousel-inner
-              - @product.assets.each_with_index do |asset, index|
-                %div{ class: (index == 0) ? "active item" : "item"}
-                  = image_tag asset.image.url
-                  .carousel-caption
-                    %strong= asset.image_file_name
-            - if @product.assets.length > 1
-              %a.carousel-control.left{ href: "#image-slider", :"data-slide" => "prev" } &lsaquo;
-              %a.carousel-control.right{ href: "#image-slider", :"data-slide" => "next" } &rsaquo;
-          %script
-            $(document).ready(function(){$("#image-slider").carousel()})
-.span4
-  %section
-    .row
-      .span4.well.cart
-        = form_tag cart_path, :method => :post, remote: true, id: 'add-to-cart' do
-          = number_field_tag :count, nil, :placeholder => "Quantity", :min => 1, :class => "span4"
-          = hidden_field_tag :id, @product.id
-          = submit_tag "Add to Cart", :class => "btn btn-success"
-        #cart-contents
-          = render 'cart', :cart => @cart
-
-    .row
-      .span4.well
         - if admin_signed_in?
           .actions-container
-            - options = { :class => "btn btn-primary", :title => "Edit Categories List" }
-            = link_to "Edit Categories", categories_path, options
+            - options = { class: "btn btn-primary", title: "Edit product" }
+            = link_to "Edit", edit_product_path(@product), options
 
-        %ul.nav.nav-list
-          %li.active
-            = link_to "All Products", products_path
-            = render 'shared/categories', categories: @categories, category_id: nil
+            - options = { class: "btn btn-danger", method: :delete,
+                title: "Delete product", confirm: "Are you sure you want to delete this product?" }
+            = link_to "Delete", @product, options
+
+      .row
+        .span8
+          - if @product.description
+            %p= @product.description
+          - if @product.assets.any?
+            #image-slider.carousel.slide
+              .carousel-inner
+                - @product.assets.each_with_index do |asset, index|
+                  %div{ class: (index == 0) ? "active item" : "item"}
+                    = image_tag asset.image.url
+                    .carousel-caption
+                      %strong= asset.image_file_name
+              - if @product.assets.length > 1
+                %a.carousel-control.left{ href: "#image-slider", data: { slide: "prev" } } &lsaquo;
+                %a.carousel-control.right{ href: "#image-slider", data: { slide: "next" } } &rsaquo;
+            :coffeescript
+              $("#image-slider").carousel()
+  .span4
+    %section
+      .row
+        .span4.well.cart
+          = form_tag cart_path, method: :post, remote: true, id: 'add-to-cart' do
+            = number_field_tag :count, nil, placeholder: "Quantity", min: 1, class: "span4"
+            = hidden_field_tag :id, @product.id
+            = submit_tag "Add to Cart", class: "btn btn-success"
+          #cart-contents
+            = render 'cart', cart: @cart
+
+      .row
+        .span4.well
+          - if admin_signed_in?
+            .actions-container
+              - options = { class: "btn btn-primary", title: "Edit Categories List" }
+              = link_to "Edit Categories", categories_path, options
+
+          %ul.nav.nav-list
+            %li.active
+              = link_to "All Products", products_path
+              = render 'shared/categories', categories: @categories, category_id: nil

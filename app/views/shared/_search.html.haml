@@ -8,8 +8,9 @@
         .search-row
           = form.text_field :name_or_description_cont,
               placeholder: "Search for...", class: "input"
-          = label_tag :tags, "Tags"
-          = text_field_tag :tags, nil, class: "input", value: params[:tags]
+          -# = label_tag :tags, "Tags"
+          -# = text_field_tag :tags, nil, class: "input", value: params[:tags]
+          = hidden_field_tag :tags, params[:tags], id: "tags_field"
           = form.submit "Search", class: "btn pull-right"
         .search-row
           = form.label :price_gteq, "Price between"
@@ -25,3 +26,36 @@
           = label_tag :limit, "Items per page"
           = select_tag :limit, options_for_select([25, 50, 75, 100]),
                 include_blank: true, class: "input-small"
+
+- content_for :inline_js do
+  :coffeescript
+    data = (query, page) ->
+      {
+        query: query,
+        page: page,
+        per: 4
+      } 
+    results = (data, page) ->
+      {
+        results: data
+      }
+    format = (data) ->
+      data.name
+    initialize = (element, callback) ->
+      tags = element.val().split(",")
+      callback({ name: tag } for tag in tags)
+    
+    $("#tags_field").select2({
+      ajax: {
+        url: "#{tags_search_path}.json",
+        data: data, 
+        results: results
+      },
+      formatResult: format,
+      formatSelection: format,
+      initSelection: initialize,
+      multiple: true,
+      closeOnSelect: false,
+      id: "name",
+      containerCssClass: "input-large"
+    })

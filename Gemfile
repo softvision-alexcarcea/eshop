@@ -15,6 +15,7 @@ gem 'acts-as-taggable-on'
 gem 'ancestry'
 gem 'coffee-filter'
 gem 'ransack'
+gem 'select2-rails'
 
 # Gems used only for assets and not required
 # in production environments by default.

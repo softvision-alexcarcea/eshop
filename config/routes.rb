@@ -1,4 +1,6 @@
 Eshop::Application.routes.draw do
+  get "tags/search"
+
   devise_for :admins
 
   root :to => 'products#index'

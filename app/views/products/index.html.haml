@@ -1,6 +1,6 @@
 .row
   .span12
-    = render 'shared/search', category: @category
+    = render 'shared/search', category: @category, search: @search
 .row
   .span8
     %section
@@ -27,6 +27,7 @@
               = link_to "Edit Categories", categories_path, options
           
           %ul.nav.nav-list
-            %li.active
+            %li{ class: @category ? nil : "active" }
               = link_to "All Products", products_path
-              = render 'shared/categories', categories: @categories, category_id: nil
+              = render 'shared/categories', categories: @categories,
+                  category_id: @category ? @category.id : nil

@@ -3,6 +3,7 @@ class ProductsController < ApplicationController
                 :only => [:new, :create, :edit, :update, :destroy]
 
   def index
+    @search = Product.search(params[:q])
     @products = Product.page(params[:page]).per(@products_per_page)
     @categories = Category.arrange(:order => :name)
     @cart = Cart.new(session)
@@ -59,38 +60,16 @@ class ProductsController < ApplicationController
   end
   
   def search
-    queries = []
-    parameters = {}
-    
-    if(params[:query] && !params[:query].blank?)
-      queries << "LOWER(name) LIKE :query OR LOWER(description) LIKE :query"
-      parameters[:query] = "%#{params[:query]}%"
-    end
-    
-    if(!params[:min_price].blank?)
-      if(!params[:max_price].blank?)
-        queries << "price BETWEEN :min_price AND :max_price"
-        parameters[:min_price] = params[:min_price].to_i
-        parameters[:max_price] = params[:max_price].to_i
-      else
-        queries << "price <= :min_price"
-        parameters[:min_price] = params[:min_price].to_i
-      end
-    elsif(!params[:max_price].blank?)
-      queries << "price >= :max_price"
-      parameters[:max_price] = params[:max_price].to_i
-    end
-    
-    source = params[:category_id] ?
-      Category.find(params[:category_id]).products : Product
-    
-    @products = source.where(queries.join(" AND "), parameters)
+    @category = (params[:category_id]) ?
+      Category.find(params[:category_id]) : nil
+    source = @category ? @category.products : Product
+      
+    @search = source.search(params[:q])
+    @products = @search.result
     
     if(!params[:tags].blank?)
       @products = @products.tagged_with(params[:tags])
     end
-    
-    @products = @products.order(params[:order])
     
     if(!params[:limit].blank?)
       @products_per_page = params[:limit].to_i

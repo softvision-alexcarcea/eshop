@@ -64,6 +64,10 @@ footer p {
 }
 
 /* Search box styles */
+.product_search {
+  @extend .form-search
+}
+
 .search-container {
   padding: 10px;
 }

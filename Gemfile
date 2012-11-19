@@ -14,6 +14,7 @@ gem 'paperclip'
 gem 'acts-as-taggable-on'
 gem 'ancestry'
 gem 'coffee-filter'
+gem 'ransack'
 
 # Gems used only for assets and not required
 # in production environments by default.

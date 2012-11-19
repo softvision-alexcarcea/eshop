@@ -1,25 +1,25 @@
 .row
   .span12
     .well.search-container
-      = form_tag search_products_path, method: :get,
-            id: "search-form", class: "form-search" do
+      = search_form_for search, method: :get, url: search_products_path,
+            id: "search-form", class: "form-search" do |form|
         - if category
           = hidden_field_tag :category_id, category.id
         .search-row
-          = text_field_tag :query, nil,
+          = form.text_field :name_or_description_cont,
               placeholder: "Search for...", class: "input"
-          %label Tags
-          = text_field_tag :tags, nil, class: "input"
-          = submit_tag "Search", class: "btn pull-right"
+          = label_tag :tags, "Tags"
+          = text_field_tag :tags, nil, class: "input", value: params[:tags]
+          = form.submit "Search", class: "btn pull-right"
         .search-row
-          %label Price between
-          = number_field_tag :min_price, nil,
+          = form.label :price_gteq, "Price between"
+          = form.number_field :price_gteq,
               placeholder: "min", class: "input-mini"
-          %label and
-          = number_field_tag :max_price, nil,
+          = form.label :price_lteq, "and"
+          = form.number_field :price_lteq,
               placeholder: "max", class: "input-mini"
-          = label_tag :order, "Order by"
-          = select_tag :order, options_for_select(name: :name,
+          = form.label :s, "Order by"
+          = form.select :s, options_for_select(name: :name,
                 description: :description, price: :price),
                 include_blank: true, class: "input-small"
           = label_tag :limit, "Items per page"

@@ -25,9 +25,13 @@
             %div.actions-container
               - options = { :class => "btn btn-primary", :title => "Edit Categories List" }
               = link_to "Edit Categories", categories_path, options
-          
+
           %ul.nav.nav-list
             %li{ class: @category ? nil : "active" }
               = link_to "All Products", products_path
               = render 'shared/categories', categories: @categories,
                   category_id: @category ? @category.id : nil
+
+- content_for :inline_js do
+  :javascript
+    products = #{@products.to_json}

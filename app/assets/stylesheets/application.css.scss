@@ -1,2 +1,6 @@
 //= require select2
-//= require_tree .
+//= require_self
+
+@import 'bootstrap';
+@import 'bootstrap-responsive';
+@import 'products';

@@ -20,7 +20,7 @@ class ProductsController < ApplicationController
   def create
     @product = Product.new(params[:product])
     if @product.save
-      redirect_to root_path, :flash => { :success => "Product successfully created" }
+      redirect_to root_path, flash: { success: "Product successfully created" }
     else
       flash.now[:error] = "Could not create product"
       render :new
@@ -52,35 +52,33 @@ class ProductsController < ApplicationController
 
   def destroy
     @product = Product.find(params[:id])
-    if @product.destroy
-      redirect_to products_path, :flash => { :success => "Product successfully deleted" }
-    else
-      redirect_to products_path, :flash => { :error => "Could not delete product" }
-    end
+    flash = if @product.destroy
+              { :success => "Product successfully deleted" }
+            else
+              { :error => "Could not delete product" }
+            end
+
+    redirect_to products_path, flash: flash
   end
-  
+
   def search
     @category = (params[:category_id]) ?
       Category.find(params[:category_id]) : nil
     source = @category ? @category.products : Product
-      
+
     @search = source.search(params[:q])
     @products = @search.result
-    
-    if(!params[:tags].blank?)
-      @products = @products.tagged_with(params[:tags])
-    end
-    
-    if(!params[:limit].blank?)
-      @products_per_page = params[:limit].to_i
-    end
-    
+
+    @products = @products.tagged_with(params[:tags]) unless params[:tags].blank?
+
+    @products_per_page = params[:limit].to_i unless params[:limit].blank?
+
     @products = @products.page(params[:page]).per(@products_per_page)
-    
+
     @categories = Category.arrange(:order => :name)
     @cart = Cart.new(session)
     @title = "Search results"
-    
+
     render :index
   end
 end

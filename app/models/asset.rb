@@ -14,9 +14,9 @@
 
 class Asset < ActiveRecord::Base
   belongs_to :product, :inverse_of => :assets
-  
+
   validates :product, :presence => true
-  
+
   has_attached_file :image, :styles => { :thumbnail => "100x100!" }
   attr_accessible :image
 end

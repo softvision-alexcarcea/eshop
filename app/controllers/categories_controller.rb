@@ -1,14 +1,14 @@
 class CategoriesController < ApplicationController
   before_filter :authenticate_admin!,
                 :only => [:new, :create, :edit, :update, :destroy]
-  
+
   def new
-    @category = Category.new(:parent_id => params[:parent_id])
+    @category = Category.new params.permit(:parent_id)
     @title = "Create category"
   end
 
   def create
-    @category = Category.new(params[:category])
+    @category = Category.new category_params
     if @category.save
       redirect_to categories_path, :flash => { :success => "Category successfully created" }
     else
@@ -16,7 +16,7 @@ class CategoriesController < ApplicationController
       render :new
     end
   end
-  
+
   def index
     @categories = Category.arrange(:order => :name)
     @title = "Category list"
@@ -38,7 +38,7 @@ class CategoriesController < ApplicationController
 
   def update
     @category = Category.find(params[:id])
-    if @category.update_attributes(params[:category])
+    if @category.update_attributes category_params
       redirect_to categories_path, :flash => { :success => "Category successfully updated" }
     else
       flash.now[:error] = "Could not update category"
@@ -53,5 +53,10 @@ class CategoriesController < ApplicationController
     else
       redirect_to categories_path, :flash => { :error => "Could not delete category" }
     end
+  end
+
+  private
+  def category_params
+    params.require(:category).permit(:name, :description, :products, :parent_id)
   end
 end

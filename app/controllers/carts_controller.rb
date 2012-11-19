@@ -1,4 +1,5 @@
 class CartsController < ApplicationController
+  before_filter :initialize_cart
 
   def show
 
@@ -9,23 +10,20 @@ class CartsController < ApplicationController
   end
 
   def create
-    @cart = Cart.new(session)
-    @cart.add(params[:id], params[:count])
+    @cart.add params.require(:id), params.require(:count)
 
     render partial: 'products/cart', locals: { cart: @cart }
   end
 
   def destroy
-    @cart = Cart.new(session)
-    @cart.remove(params[:id])
-    
+    @cart.remove params.require(:id)
+
     render partial: 'products/cart', locals: { cart: @cart }
   end
 
   def update
-    @cart = Cart.new(session)
-    @cart.update(params[:id], params[:count])
-    
+    @cart.update params.require(:id), params.require(:count)
+
     render partial: 'products/cart', locals: { cart: @cart }
   end
 end

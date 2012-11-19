@@ -11,8 +11,10 @@
 #
 
 class Category < ActiveRecord::Base
+  include ActiveModel::ForbiddenAttributesProtection
+
   attr_accessible :name, :description, :products, :parent_id
-  
+
   has_and_belongs_to_many :products
   has_ancestry
 end

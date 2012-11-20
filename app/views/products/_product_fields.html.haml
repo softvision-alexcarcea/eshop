@@ -26,14 +26,14 @@
       = form.label :categories
     .span10
       = form.collection_select :category_ids, @categories, :id, :name,
-          {}, class: "span10", multiple: true, selected: @product.categories.map(&:id)
+          {}, class: "span10", multiple: true
 
 .control-group
   .row
     .span2
       = form.label :tags
     .span10
-      = form.text_field :tag_list, class: "span10"
+      = form.hidden_field :tag_list
 
 .control-group
   .row
@@ -62,5 +62,64 @@
                 %a.remove-image.btn.btn-small.btn-danger{ href: "#",
                   title: "Remove image", data: { id: i } } Remove
 
-= javascript_tag do
-  = (render "product_fields.js").html_safe
+- content_for :inline_js do
+  :coffeescript
+    add_asset = (element) ->
+      asset = "<input type=\"file\" name=\"product[asset_files][]\"/><br/>"
+      element.before(asset)
+
+    remove_asset = (element) ->
+      id = element.attr("data-id")
+      destroy = $("#product_assets_attributes_\#{id}__destroy")
+      img = element.parent().find("img")
+      if element.text() == "Remove"
+        img.fadeTo("slow", 0.5)
+        element.text("Undo")
+        destroy.val(true)
+      else
+        img.fadeTo("slow", 1)
+        element.text("Remove")
+        destroy.val(false)
+    
+    format = (data) ->
+      data.name
+    
+    $( ->
+      $(".add-image").click (event) ->
+        event.preventDefault()
+        add_asset($(this))
+      
+      $(".remove-image").click (event) ->
+        event.preventDefault()
+        remove_asset($(this))
+      
+      $("#product_tag_list").select2
+        ajax:
+          url: "#{tags_search_path}.json"
+          data: (query, page) ->
+            query: query
+            page: page
+            
+          results: (data, page) ->
+            results: data
+        
+        formatResult: format
+        formatSelection: format
+        
+        initSelection: (element, callback) ->
+          tags = element.val().split(",")
+          callback(name: tag for tag in tags)
+        
+        createSearchChoice: (term) ->
+          name: term
+        
+        tokenSeparators: [',']
+          
+        multiple: true
+        closeOnSelect: false
+        id: "name"
+        containerCssClass: "input span10"
+        tags: []
+      
+      $("#product_category_ids").select2()
+    )

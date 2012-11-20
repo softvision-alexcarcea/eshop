@@ -40,7 +40,7 @@
             = hidden_field_tag :id, @product.id
             = submit_tag "Add to Cart", class: "btn btn-success"
           #cart-contents
-            = render 'cart', cart: @cart
+            = render 'cart/cart', cart: @cart
 
       .row
         .span4.well

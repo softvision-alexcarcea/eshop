@@ -1,10 +1,12 @@
 class ProductsController < ApplicationController
   before_filter :authenticate_admin!,
                 :only => [:new, :create, :edit, :update, :destroy]
+  
+  load_and_authorize_resource except: [:create, :search]
 
   def index
+    @products = @products.page(params[:page]).per(@products_per_page)
     @search = Product.search(params[:q])
-    @products = Product.page(params[:page]).per(@products_per_page)
     @categories = Category.arrange(:order => :name)
     @cart = Cart.new(session)
     @title = "Product list"
@@ -12,13 +14,13 @@ class ProductsController < ApplicationController
   end
 
   def new
-    @product = Product.new
     @categories = Category.order(:name)
     @title = "Create product"
   end
 
   def create
-    @product = Product.new(params[:product])
+    @product = Product.new(product_params)
+    authorize! :create, @product
     if @product.save
       redirect_to root_path, flash: { success: "Product successfully created" }
     else
@@ -28,14 +30,12 @@ class ProductsController < ApplicationController
   end
 
   def edit
-    @product = Product.find(params[:id])
     @categories = Category.order(:name)
     @title = "Edit #{@product.name}"
   end
 
   def update
-    @product = Product.find(params[:id])
-    if @product.update_attributes(params[:product])
+    if @product.update_attributes(product_params)
       redirect_to root_path, :flash => { :success => "Product successfully updated" }
     else
       flash.now[:error] = "Could not update product"
@@ -44,14 +44,12 @@ class ProductsController < ApplicationController
   end
 
   def show
-    @product = Product.find(params[:id])
     @categories = Category.arrange(:order => :name)
     @cart = Cart.new(session)
     @title = @product.name
   end
 
   def destroy
-    @product = Product.find(params[:id])
     flash = if @product.destroy
               { :success => "Product successfully deleted" }
             else
@@ -62,11 +60,12 @@ class ProductsController < ApplicationController
   end
 
   def search
+    authorize! :read, Category
     @category = (params[:category_id]) ?
       Category.find(params[:category_id]) : nil
     source = @category ? @category.products : Product
 
-    @search = source.search(params[:q])
+    @search = source.search(search_params)
     @products = @search.result
 
     @products = @products.tagged_with(params[:tags]) unless params[:tags].blank?
@@ -81,4 +80,19 @@ class ProductsController < ApplicationController
 
     render :index
   end
+  
+  private
+    def product_params
+      params.require(:product).permit(
+          :name, :description, :price, :category_ids,
+          :tag_list, :default_asset_id, :asset_files,
+          :assets_attributes
+        )
+    end
+    
+    def search_params
+      params.require(:q).permit(
+          :name_or_description_cont, :price_lteq, :price_gteq, :s
+        )
+    end
 end

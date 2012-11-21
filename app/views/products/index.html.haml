@@ -6,32 +6,34 @@
     %section
       .row
         %h1= @title || "Product list"
+        - if can? :create, Product
+          .actions-container
+            = link_to "Add Product", new_product_path,
+                { class: "btn btn-success", title: "Add Product" }
+        
         - if @products.any?
           %ul.unstyled.products
             = render @products
           = paginate @products
         - else
           %p No products matching your criteria exist.
+  
   .span4
     %section
       .row
         .span4.well.cart
           #cart_contents
-            = render 'cart/cart', :cart => @cart
+            = render 'cart/cart', cart: @cart
 
       .row
         .span4.well
-          - if admin_signed_in?
-            %div.actions-container
-              - options = { :class => "btn btn-primary", :title => "Edit Categories List" }
-              = link_to "Edit Categories", categories_path, options
+          - if can? :update, Category
+            .actions-container
+              = link_to "Edit Categories", categories_path,
+                  { class: "btn btn-primary", title: "Edit Categories List" }
 
           %ul.nav.nav-list
             %li{ class: @category ? nil : "active" }
               = link_to "All Products", products_path
               = render 'shared/categories', categories: @categories,
                   category_id: @category ? @category.id : nil
-
-- content_for :inline_js do
-  :javascript
-    products = #{@products.to_json}

@@ -1,9 +1,9 @@
 Eshop::Application.routes.draw do
   get "tags/search"
 
-  devise_for :admins
+  devise_for :admins, controllers: { sessions: "admins/sessions" }
 
-  root :to => 'products#index'
+  root :to => "products#index"
 
   resources :products do
     collection do

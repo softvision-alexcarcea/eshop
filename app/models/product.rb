@@ -29,9 +29,11 @@ class Product < ActiveRecord::Base
   
   acts_as_taggable
   
+  default_scope order('updated_at DESC, name ASC')
+  
   def asset_files=(files)
     files.each do |file|
-      asset = assets.create(image: file)
+      asset = assets.build(image: file)
     end
   end
 end

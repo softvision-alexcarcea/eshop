@@ -1,5 +1,8 @@
 class CartsController < ApplicationController
   before_filter :initialize_cart
+  
+  # everybody can manage the cart
+  skip_authorization_check
 
   def show
 

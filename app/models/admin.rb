@@ -8,6 +8,7 @@
 #  remember_created_at :datetime
 #  created_at          :datetime         not null
 #  updated_at          :datetime         not null
+#  role                :integer
 #
 
 class Admin < ActiveRecord::Base
@@ -19,7 +20,21 @@ class Admin < ActiveRecord::Base
 
   # Setup accessible (or protected) attributes for your model
   attr_accessible :email, :remember_me, :password,
-                  :password_confirmation
-                  
-  # attr_accessible :title, :body
+                  :password_confirmation, :role
+  
+  ROLE_SUPER = 1
+  ROLE_MODERATOR = 2
+  ROLE_EDITOR = 3
+  
+  def super?
+    role == ROLE_SUPER
+  end
+  
+  def moderator?
+    role == ROLE_MODERATOR
+  end
+  
+  def editor?
+    role == ROLE_EDITOR
+  end
 end

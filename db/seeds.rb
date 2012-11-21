@@ -71,7 +71,17 @@ create_categories(categories_data)
   @products.append(product)
 end
 
-# create admin
-Admin.create! email: "admin@eshop.com",
-              password: "letmein",
-              password_confirmation: "letmein"
+# create admins
+roles = {
+    admin:      nil,
+    editor:     Admin::ROLE_EDITOR,
+    moderator:  Admin::ROLE_MODERATOR,
+    super:      Admin::ROLE_SUPER
+  }
+
+roles.each do |name, role|
+  Admin.create! email: "#{name}@eshop.com",
+                password: "letmein",
+                password_confirmation: "letmein",
+                role: role
+end

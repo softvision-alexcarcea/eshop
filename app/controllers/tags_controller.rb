@@ -1,5 +1,6 @@
 class TagsController < ApplicationController
   def search
+    authorize! :read, ActsAsTaggableOn::Tag
     source = params[:query].blank? ?
       ActsAsTaggableOn::Tag :
       ActsAsTaggableOn::Tag.named_like(params[:query])

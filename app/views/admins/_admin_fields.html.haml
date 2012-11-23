@@ -1,0 +1,28 @@
+.control-group
+  = form.label :email, class: "control-label"
+  .controls
+    = form.email_field :email, class: "span4"
+
+.control-group
+  = form.label :role, class: "control-label"
+  .controls
+    = form.select :role, [ [ "Super", Admin::ROLE_SUPER ],
+        [ "Moderator", Admin::ROLE_MODERATOR ], [ "Editor", Admin::ROLE_EDITOR ] ],
+        { include_blank: true }, class: "span4"
+
+.control-group
+  = form.label :password, class: "control-label"
+  .controls
+    = form.password_field :password, class: "span4"
+
+.control-group
+  = form.label :password_confirmation, class: "control-label"
+  .controls
+    = form.password_field :password_confirmation, class: "span4"
+
+
+- content_for :inline_js do
+  :coffeescript
+    $( ->
+      $("#admin_role").select2()
+    )

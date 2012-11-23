@@ -1,6 +1,8 @@
 class ProductsController < ApplicationController
   before_filter :authenticate_admin!,
                 :only => [:new, :create, :edit, :update, :destroy]
+
+  before_filter :initialize_cart, only: [:index, :show, :search]
   
   load_and_authorize_resource except: [:create, :search]
 
@@ -8,7 +10,6 @@ class ProductsController < ApplicationController
     @products = @products.page(params[:page]).per(@products_per_page)
     @search = Product.search(params[:q])
     @categories = Category.arrange(:order => :name)
-    @cart = Cart.new(session)
     @title = "Product list"
     @root = true
   end
@@ -45,7 +46,6 @@ class ProductsController < ApplicationController
 
   def show
     @categories = Category.arrange(:order => :name)
-    @cart = Cart.new(session)
     @title = @product.name
   end
 
@@ -75,7 +75,6 @@ class ProductsController < ApplicationController
     @products = @products.page(params[:page]).per(@products_per_page)
 
     @categories = Category.arrange(:order => :name)
-    @cart = Cart.new(session)
     @title = "Search results"
 
     render :index

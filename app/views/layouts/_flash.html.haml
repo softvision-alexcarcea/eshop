@@ -3,6 +3,7 @@
 - types.each do |key, value|
   - if flash[key]
     .row
-      %div{ class: "alert alert-#{value} fade in" }
-        %button.close{ data: { dismiss: "alert" }, type: "button" } &times;
-        = flash[key]
+      .span12
+        .alert.fade.in{ class: "alert-#{value}" }
+          %button.close{ data: { dismiss: "alert" }, type: "button" } &times;
+          = flash[key]

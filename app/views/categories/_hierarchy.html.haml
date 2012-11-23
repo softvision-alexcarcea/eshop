@@ -8,12 +8,12 @@
             - if can? :update, category
               = link_to "Edit", edit_category_path(category),
                   { class: "btn btn-primary", title: "Edit category" }
-            
+
             - if can? :create, Category
               = link_to "Add Subcategory",
                   new_category_path(parent_id: category.id),
                   { class: "btn btn-success", title: "Add Subcategory" }
-            
+
             - if can? :destroy, category
               = link_to "Delete", category,
                   { class: "btn btn-danger", method: :delete,

@@ -1,40 +1,35 @@
-.row
-  .span12
-    = render 'shared/search', category: @category, search: @search
+= render 'shared/search', category: @category, search: @search
 .row
   .span8
-    %section
-      .row
-        %h1= "#{@category.name}: products"
-        - if can? :create, Product
-          .actions-container
-            = link_to "Add Product", new_product_path,
-                { class: "btn btn-success", title: "Add Product" }
-        
-        - if @products.any?
-          .actions-container
-            = link_to "Add Product", new_product_path,
-                { class: "btn btn-success", title: "Add Product" }
-          %ul.unstyled.products
-            = render @products
-          = paginate @products
-        - else
-          %p No products in this category.
+    %h1= "#{@category.name}: products"
+    - if can? :create, Product
+      .actions-container
+        = link_to "Add Product", new_product_path,
+            { class: "btn btn-success", title: "Add Product" }
+
+    - if @products.any?
+      %ul.unstyled.products
+        = render @products
+      = paginate @products
+    - else
+      %p No products in this category.
         
   .span4
-    %section
+    - if !admin_signed_in? # no use displaying the cart for admins
       .row
-        .span4.well
-          #cart_contents
-            = render 'cart/cart', cart: @cart
-      
-      .row
-        .span4.well
+        .span4
+          .well
+            #cart_contents
+              = render 'cart/cart', cart: @cart
+
+    .row
+      .span4
+        .well
           - if can? :update, Category
             .actions-container
               = link_to "Edit Categories", categories_path,
                   { class: "btn btn-primary", title: "Edit Categories List" }
-          
+
           %ul.nav.nav-list
             %li
               = link_to "All Products", products_path

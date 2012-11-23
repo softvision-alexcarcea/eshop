@@ -1,6 +1,8 @@
 class CategoriesController < ApplicationController
   before_filter :authenticate_admin!,
                 only: [:new, :create, :edit, :update, :destroy]
+
+  before_filter :initialize_cart, only: :show
   
   load_and_authorize_resource only: [:show, :edit, :update, :destroy]
 
@@ -31,7 +33,6 @@ class CategoriesController < ApplicationController
     @categories = Category.arrange(:order => :name)
     @search = Product.search(params[:q])
     @products = @category.products.page(params[:page]).per(@products_per_page)
-    @cart = Cart.new(session)
     @title = @category.name
   end
 

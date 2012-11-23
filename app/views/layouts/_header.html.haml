@@ -5,6 +5,8 @@
         %a.brand{ href: root_path, title: "eShop Home" } eShop
         %ul.nav.nav-pills.pull-right
           %li{ class: @root ? "active" : "" }= link_to "Home", root_path
+          - if can? :manage, Admin
+            %li{ class: @new_admin ? "active" : "" }= link_to "New admin", new_admin_path
           - if admin_signed_in?
             %li= link_to "Sign Out", destroy_admin_session_path,
                 { title: "Signed in as #{current_admin.email}",

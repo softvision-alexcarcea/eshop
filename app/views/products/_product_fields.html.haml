@@ -1,66 +1,55 @@
 .control-group
-  .row
-    .span2
-      = form.label :name
-    .span10
-      = form.text_field :name, class: "span10"
+  = form.label :name, class: "control-label"
+  .controls
+    = form.text_field :name, class: "span9"
 
 .control-group
-  .row
-    .span2
-      = form.label :price
-    .span10.input-prepend
+  = form.label :price, class: "control-label"
+  .controls
+    .input-prepend
       %span.add-on $
       = form.text_field :price, class: "span2"
 
 .control-group
-  .row
-    .span2
-      = form.label :description
-    .span10
-      = form.text_area :description, rows: 5, class: "span10"
+  = form.label :description, class: "control-label"
+  .controls
+    = form.text_area :description, rows: 5, class: "span9"
 
 .control-group
-  .row
-    .span2
-      = form.label :categories
-    .span10
-      = form.collection_select :category_ids, @categories, :id, :name,
-          {}, class: "span10", multiple: true
+  = form.label :categories, class: "control-label"
+  .controls
+    = form.collection_select :category_ids, @categories, :id, :name,
+        {}, class: "span9", multiple: true
 
 .control-group
-  .row
-    .span2
-      = form.label :tags
-    .span10
-      = form.hidden_field :tag_list
+  = form.label :tags, class: "control-label"
+  .controls
+    = form.hidden_field :tag_list
 
 .control-group
-  .row
-    .span2
-      = form.label :assets
-    .span10
-      .actions-container
-        %a.add-image.btn.btn-success{ href: "#",
-          title: "Add an image to this product" } Add image...
-      
-      = form.fields_for :assets, @product.assets do |asset_form|
-        - if asset_form.object.new_record?
-          = asset_form.file_field :image
-        - else
-          = asset_form.hidden_field :_destroy
-      
-      - if @product.assets.any?
-        %ul.thumbnails
-          - @product.assets.each_with_index do |asset, i|
-            %li.span2
-              .thumbnail
-                = link_to image_tag(asset.image.url(:thumbnail)),
-                    asset.image.url, { title: asset.image_file_name }
-                %hr.divider/
-                = form.radio_button :default_asset_id, asset.id
-                %a.remove-image.btn.btn-small.btn-danger{ href: "#",
-                  title: "Remove image", data: { id: i } } Remove
+  = form.label :assets, class: "control-label"
+  .controls
+    .actions-container
+      %a.add-image.btn.btn-success{ href: "#",
+        title: "Add an image to this product" } Add image...
+
+    = form.fields_for :assets, @product.assets do |asset_form|
+      - if asset_form.object.new_record?
+        = asset_form.file_field :image
+      - else
+        = asset_form.hidden_field :_destroy
+
+    - if @product.assets.any?
+      %ul.thumbnails
+        - @product.assets.each_with_index do |asset, i|
+          %li.span2
+            .thumbnail
+              = link_to image_tag(asset.image.url(:thumbnail)),
+                  asset.image.url, { title: asset.image_file_name }
+              %hr.divider/
+              = form.radio_button :default_asset_id, asset.id
+              %a.remove-image.btn.btn-small.btn-danger{ href: "#",
+                title: "Remove image", data: { id: i } } Remove
 
 - content_for :inline_js do
   :coffeescript
@@ -118,7 +107,7 @@
         multiple: true
         closeOnSelect: false
         id: "name"
-        containerCssClass: "input span10"
+        containerCssClass: "input span9"
         tags: []
       
       $("#product_category_ids").select2()

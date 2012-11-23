@@ -13,6 +13,8 @@ Eshop::Application.routes.draw do
 
   resources :categories
 
+  resources :admins, only: [ :new, :create ]
+
   resource :cart
 
   # The priority is based upon order of creation:

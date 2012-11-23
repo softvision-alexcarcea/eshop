@@ -1,29 +1,30 @@
 .row
   .span12
-    .well.search-container
-      = search_form_for search, method: :get, url: search_products_path,
-            id: "search-form", class: "form-search" do |form|
-        - if category
-          = hidden_field_tag :category_id, category.id
-        .search-row
-          = form.text_field :name_or_description_cont,
-              placeholder: "Search for...", class: "input"
-          = hidden_field_tag :tags, params[:tags], id: "tags_field"
-          = form.submit "Search", class: "btn pull-right"
-        .search-row
-          = form.label :price_gteq, "Price between"
-          = form.number_field :price_gteq,
-              placeholder: "min", class: "input-mini"
-          = form.label :price_lteq, "and"
-          = form.number_field :price_lteq,
-              placeholder: "max", class: "input-mini"
-          = form.label :s, "Order by"
-          = form.select :s, options_for_select(name: :name,
-                description: :description, price: :price),
-                { include_blank: true }, { class: "input-small" }
-          = label_tag :limit, "Items per page"
-          = select_tag :limit, options_for_select([25, 50, 75, 100]),
-                include_blank: true, class: "input-small"
+    .well
+      .search-container
+        = search_form_for search, method: :get, url: search_products_path,
+              id: "search-form", class: "form-search" do |form|
+          - if category
+            = hidden_field_tag :category_id, category.id
+          .search-row
+            = form.text_field :name_or_description_cont,
+                placeholder: "Search for...", class: "input"
+            = hidden_field_tag :tags, params[:tags], id: "tags_field"
+            = form.submit "Search", class: "btn pull-right"
+          .search-row
+            = form.label :price_gteq, "Price between"
+            = form.number_field :price_gteq,
+                placeholder: "min", class: "input-mini"
+            = form.label :price_lteq, "and"
+            = form.number_field :price_lteq,
+                placeholder: "max", class: "input-mini"
+            = form.label :s, "Order by"
+            = form.select :s, options_for_select(name: :name,
+                  description: :description, price: :price),
+                  { include_blank: true }, { class: "input-small" }
+            = label_tag :limit, "Items per page"
+            = select_tag :limit, options_for_select([25, 50, 75, 100]),
+                  include_blank: true, class: "input-small"
 
 - content_for :inline_js do
   :coffeescript

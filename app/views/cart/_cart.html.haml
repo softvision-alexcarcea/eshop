@@ -8,20 +8,23 @@
     - cart.products.each do |product|
       - count = @cart.count(product)
       - total += product.price * count
-      %li
-        .row
-          .span3
-            = image_tag product_default_image_url product, :thumbnail
-            %span.label.label-info= "(#{count})"
-            = link_to product.name, product
-          .span1
-            = link_to cart_path(id: product.id),
-                class: "btn btn-mini btn-danger delete",
-                title: "Remove from Cart", remote: true,
-                method: :delete, confirm: "Are you sure you want to remove this item from your cart?" do
-              &times;
-  %span.text-info= "Total: $%.2f" % total
-  %span.pull-right
-    %a{ :href => "#", :class => "btn btn-primary" } Buy!
+      %li.clearfix
+        .pull-left
+          = image_tag product_default_image_url product, :thumbnail
+          %span.label.label-info= "(#{count})"
+          = link_to product.name, product
+        .pull-right
+          = link_to cart_path(id: product.id),
+              class: "btn btn-mini btn-danger delete",
+              title: "Remove from Cart", remote: true,
+              method: :delete, confirm: "Are you sure you want to remove this item from your cart?" do
+            &times;
+
+  %hr.divider/
+
+  .actions-container
+    %span.text-info= "Total: $%.2f" % total
+    %span.pull-right
+      %a{ :href => "#", :class => "btn btn-primary" } Buy!
 - else
   %span.label.label-info 0 items

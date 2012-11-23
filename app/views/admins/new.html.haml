@@ -1,0 +1,9 @@
+.row
+  .span12
+    .well
+      = form_for @admin, html: { multipart: true, class: "form-horizontal" } do |form|
+        %legend Create admin
+        = render 'layouts/errors', object: form.object
+        = render 'admin_fields', form: form
+        .form-actions
+          = form.submit "Create", class: "btn btn-success"

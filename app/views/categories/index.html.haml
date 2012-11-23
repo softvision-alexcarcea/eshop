@@ -1,9 +1,10 @@
 .row
-  %h1 Category list
-  .well
-    - if can? :create, Category
-      .actions-container
-        = link_to "Add category", new_category_path,
-            { class: "btn btn-success", title: "Add category" }
-    
-    = render 'hierarchy', hierarchy: @categories
+  .span12
+    .well
+      %h1 Category list
+      - if can? :create, Category
+        .actions-container
+          = link_to "Add category", new_category_path,
+              { class: "btn btn-success", title: "Add category" }
+
+      = render 'hierarchy', hierarchy: @categories
